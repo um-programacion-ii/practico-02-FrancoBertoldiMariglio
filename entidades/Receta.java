@@ -1,12 +1,16 @@
 package entidades;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Receta {
     protected int tiempoCoccion;
-    protected Ingrediente[] ingredientes;
+//    protected Ingrediente[] ingredientes;
+
+    protected Map<String, Integer> ingredientes;
 
     protected String preparacion;
 
-    public Receta(int tiempoCoccion, Ingrediente[] ingredientes, String preparacion) {
+    public Receta(int tiempoCoccion, Map<String, Integer> ingredientes, String preparacion) {
         this.tiempoCoccion = tiempoCoccion;
         this.ingredientes = ingredientes;
         this.preparacion = preparacion;
@@ -16,7 +20,7 @@ public class Receta {
         return tiempoCoccion;
     }
 
-    public Ingrediente[] getIngredientes() {
+    public Map<String, Integer> getIngredientes() {
         return ingredientes;
     }
 
@@ -28,7 +32,7 @@ public class Receta {
         this.tiempoCoccion = tiempoCoccion;
     }
 
-    public void setIngredientes(Ingrediente[] ingredientes) {
+    public void setIngredientes(Map<String, Integer> ingredientes) {
         this.ingredientes = ingredientes;
     }
 
@@ -37,11 +41,10 @@ public class Receta {
     }
 
     public String toString() {
-        String ingredientes = "";
-        for (Ingrediente ingrediente : this.ingredientes) {
-            ingredientes += ingrediente + "\n";
-        }
-        return "Receta: " + this.getClass().getSimpleName() + "\nTiempo de coccion: " + this.tiempoCoccion +
-                "seg" + "\nIngredientes:\n" + ingredientes + "Preparacion: " + this.preparacion;
+        return "Receta {" +
+                "tiempoCoccion=" + tiempoCoccion +
+                ", ingredientes=" + ingredientes.toString() +
+                ", preparacion='" + preparacion + '\'' +
+                '}';
     }
 }

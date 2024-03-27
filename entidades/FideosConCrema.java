@@ -1,14 +1,15 @@
 package entidades;
+import java.util.HashMap;
 
 public class FideosConCrema extends Receta {
 
     public FideosConCrema() {
-        super(20, new Ingrediente[] {
-            new Ingrediente("Fideos", 500),
-            new Ingrediente("Crema", 200),
-            new Ingrediente("Sal", 10),
-            new Ingrediente("Pimienta", 10),
-            new Ingrediente("Manteca", 50),
-        }, "Hervir los fideos, mezclar con la crema, la sal, la pimienta y la manteca. Servir caliente");
+        super(
+        20,
+        new HashMap<>() {{
+        put("Fideos", 100);
+        put("Crema", 300);
+        }},
+        "Hervir los fideos, mezclar con crema y servir.");
     }
 }

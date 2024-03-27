@@ -1,16 +1,23 @@
 package entidades;
+import java.util.HashMap;
 
 public class PastelDePapa extends Receta {
 
     public PastelDePapa() {
-        super(60, new Ingrediente[] {
-            new Ingrediente("Papa", 1),
-            new Ingrediente("Huevo", 2),
-            new Ingrediente("Queso", 100),
-            new Ingrediente("Sal", 10),
-            new Ingrediente("Pimienta", 10),
-            new Ingrediente("Leche", 100),
-            new Ingrediente("Manteca", 50),
-        }, "Hervir las papas, hacer un pure, mezclar con los huevos, el queso, la sal, la pimienta, la leche y la manteca. Hornear por 30 minutos");
+        super(
+        60,
+        new HashMap<>() {{
+            put("Papa", 1);
+            put("Huevo", 2);
+            put("Queso", 100);
+            put("Sal", 10);
+            put("Pimienta", 10);
+            put("Leche", 100);
+            put("Manteca", 50);
+            put("Aceite", 25);
+            put("Cebolla", 50);
+            put("Carne", 500);
+        }},
+        "Hervir las papas, hacer un pure con leche y manteca, dorar la cebolla y la carne, armar el pastel intercalando capas de pure, carne y queso, hornear por 30 minutos");
     }
 }

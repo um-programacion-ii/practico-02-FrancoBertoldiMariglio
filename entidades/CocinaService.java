@@ -1,28 +1,25 @@
 package entidades;
 
+import java.util.Map;
+
 public class CocinaService {
 
     public void cocinar(Despensa despensa, Receta receta) {
-        Ingrediente[] ingredientesDespensa = despensa.getIngredientes();
-        Ingrediente[] ingredientesReceta = receta.getIngredientes();
+    Map<String, Integer> ingredientesDespensa = despensa.getIngredientes();
+    Map<String, Integer> ingredientesReceta = receta.getIngredientes();
 
-        for (Ingrediente ingredienteReceta : ingredientesReceta) {
-            boolean found = false;
-            for (Ingrediente ingredienteDespensa : ingredientesDespensa) {
-                if (ingredienteDespensa != null && ingredienteDespensa.getNombre().equals(ingredienteReceta.getNombre())) {
-                    if (ingredienteDespensa.getCantidad() < ingredienteReceta.getCantidad()) {
-                        int cantidadFaltante = ingredienteReceta.getCantidad() - ingredienteDespensa.getCantidad();
-                        System.out.println("No hay suficiente " + ingredienteDespensa.getNombre() +
-                                " en la despensa para poder cocinar " + receta.getClass().getSimpleName() +
-                                ". Se necesitan " + cantidadFaltante + " unidades más.");
-                        return;
-                    }
-                    found = true;
-                    break;
+    if (!ingredientesDespensa.isEmpty() && !ingredientesReceta.isEmpty()) {
+        for (Map.Entry<String, Integer> ingredienteReceta : ingredientesReceta.entrySet()) {
+            if (ingredientesDespensa.containsKey(ingredienteReceta.getKey())) {
+                if (ingredientesDespensa.get(ingredienteReceta.getKey()) < ingredienteReceta.getValue()) {
+                    int cantidadFaltante = ingredienteReceta.getValue() - ingredientesDespensa.get(ingredienteReceta.getKey());
+                    System.out.println("No hay suficiente " + ingredienteReceta.getKey() +
+                            " en la despensa para poder cocinar " + receta.getClass().getSimpleName() +
+                            ". Se necesitan " + cantidadFaltante + " unidades más.");
+                    return;
                 }
-            }
-            if (!found) {
-                System.out.println("El ingrediente " + ingredienteReceta.getNombre() +
+            } else {
+                System.out.println("El ingrediente " + ingredienteReceta.getKey() +
                         " no fue encontrado en la despensa para poder cocinar " +
                         receta.getClass().getSimpleName() + ".");
                 return;
@@ -32,16 +29,16 @@ public class CocinaService {
         System.out.println("Preparación de: " + receta.getClass().getSimpleName() +"\n" + receta.getPreparacion());
         System.out.println("Ingredientes restantes despues de la preparación:\n");
 
-        for (Ingrediente ingredienteReceta : ingredientesReceta) {
-            for (Ingrediente ingredienteDespensa : ingredientesDespensa) {
-                if (ingredienteDespensa != null && ingredienteDespensa.getNombre().equals(ingredienteReceta.getNombre())) {
-                    ingredienteDespensa.sacar(ingredienteReceta.getCantidad());
-                    System.out.println(ingredienteReceta.getNombre() + ": " + ingredienteDespensa.getCantidad() + " unidades");
-                    break;
-                }
-            }
+        for (Map.Entry<String, Integer> ingredienteReceta : ingredientesReceta.entrySet()) {
+            int nuevaCantidad = ingredientesDespensa.get(ingredienteReceta.getKey()) - ingredienteReceta.getValue();
+            ingredientesDespensa.put(ingredienteReceta.getKey(), nuevaCantidad);
+            System.out.println(ingredienteReceta.getKey() + ": " + nuevaCantidad + " unidades");
         }
 
         System.out.println(receta.getClass().getSimpleName() + " cocinada con éxito!\n");
     }
+    else {
+        System.out.println("No hay ingredientes en la despensa o en la receta para poder cocinar " + receta.getClass().getSimpleName());
+    }
+}
 }

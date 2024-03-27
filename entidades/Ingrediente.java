@@ -1,6 +1,8 @@
 package entidades;
+import interfaces.Cocinable;
+import interfaces.Despensable;
 
-public class Ingrediente {
+public class Ingrediente implements Cocinable, Despensable {
     private String nombre;
     private int cantidad;
 

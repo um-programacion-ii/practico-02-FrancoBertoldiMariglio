@@ -1,4 +1,5 @@
 package entidades;
+import interfaces.Despensable;
 
-public class Utensilio {
+public class Utensilio implements Despensable {
 }

@@ -61,6 +61,7 @@ public class Main {
 
         FideosConCrema fideosConCrema = new FideosConCrema();
         Milanesa milanesa = new Milanesa();
+        System.out.println(fideosConCrema);
 
         Chef chef = new Chef("Gordon Ramsay", 3);
         System.out.println(chef);
