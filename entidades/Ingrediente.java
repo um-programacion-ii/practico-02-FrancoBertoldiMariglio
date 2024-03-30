@@ -31,9 +31,8 @@ public class Ingrediente implements Cocinable, Despensable {
 
     @Override
     public String toString() {
-        return "Nombre: " + nombre + " Cantidad: " + cantidad;
+        return nombre;
     }
-
     public boolean sacar(int cantidad) {
         if (this.cantidad < cantidad) {
             System.out.println("No hay suficiente cantidad de " + nombre + " me falta " +

@@ -1,7 +1,17 @@
 import entidades.*;
+import entidades.excepciones.StockInsuficiente;
+import entidades.excepciones.VidaUtilInsuficiente;
+import entidades.recetas.FideosConCrema;
+import entidades.recetas.Milanesa;
+import entidades.utensilios.Cuchillo;
+import entidades.utensilios.Cuchara;
+import entidades.utensilios.Freidora;
+import entidades.utensilios.Olla;
+import entidades.utensilios.Sarten;
+import entidades.utensilios.Tenedor;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws StockInsuficiente, VidaUtilInsuficiente {
         Ingrediente ingrediente1 = new Ingrediente();
         ingrediente1.setNombre("Harina");
         ingrediente1.setCantidad(500);
@@ -58,13 +68,19 @@ public class Main {
         despensa.addIngrediente(ingrediente9);
         despensa.addIngrediente(ingrediente10);
         despensa.addIngrediente(ingrediente11);
+        despensa.addUtensilio(new Olla());
+        despensa.addUtensilio(new Sarten());
+        despensa.addUtensilio(new Cuchillo());
+        despensa.addUtensilio(new Tenedor());
+        despensa.addUtensilio(new Cuchara());
+        despensa.addUtensilio(new Freidora());
 
         FideosConCrema fideosConCrema = new FideosConCrema();
         Milanesa milanesa = new Milanesa();
-        System.out.println(fideosConCrema);
+        System.out.println(fideosConCrema + "\n");
 
         Chef chef = new Chef("Gordon Ramsay", 3);
-        System.out.println(chef);
+        System.out.println(chef + "\n");
         chef.cocinaService.cocinar(despensa, fideosConCrema);
         chef.cocinaService.cocinar(despensa, milanesa);
     }
