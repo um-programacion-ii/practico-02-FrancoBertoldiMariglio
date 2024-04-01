@@ -50,7 +50,7 @@ public class Main {
 
         Ingrediente ingrediente10 = new Ingrediente();
         ingrediente10.setNombre("Pan rallado");
-        ingrediente10.setCantidad(150);
+        ingrediente10.setCantidad(250);
 
         Ingrediente ingrediente11 = new Ingrediente();
         ingrediente11.setNombre("Aceite");
@@ -81,6 +81,7 @@ public class Main {
 
         Chef chef = new Chef("Gordon Ramsay", 3);
         System.out.println(chef + "\n");
+
         chef.cocinaService.cocinar(despensa, fideosConCrema);
         chef.cocinaService.cocinar(despensa, milanesa);
     }

@@ -32,13 +32,21 @@ public class DespensaService {
     }
 
     public void checkUtensilios(Despensa despensa, Receta receta) throws VidaUtilInsuficiente {
-        for (Utensilio utensilio : receta.getUtensilios().values()) {
-            if (utensilio.getVidaUtil() <= 0) {
-                int vidaUtilFaltante = -utensilio.getVidaUtil();
-                throw new VidaUtilInsuficiente(utensilio.getClass().getSimpleName(), vidaUtilFaltante);
+    Map<String, Utensilio> utensiliosDespensa = despensa.getUtensilios();
+    Map<String, Utensilio> utensiliosReceta = receta.getUtensilios();
+
+    for (Map.Entry<String, Utensilio> utensilioReceta : utensiliosReceta.entrySet()) {
+        Utensilio utensilioDespensa = utensiliosDespensa.get(utensilioReceta.getKey());
+        if (utensilioDespensa != null) {
+            if (utensilioDespensa.getVidaUtil() < utensilioReceta.getValue().getVidaUtil()) {
+                int vidaUtilFaltante = utensilioReceta.getValue().getVidaUtil() - utensilioDespensa.getVidaUtil();
+                throw new VidaUtilInsuficiente(utensilioReceta.getKey(), vidaUtilFaltante);
             }
+        } else {
+            throw new VidaUtilInsuficiente(utensilioReceta.getKey(), utensilioReceta.getValue().getVidaUtil());
         }
     }
+}
 
     public void renovarUtensilios(Despensa despensa) {
         Map<String, Utensilio> utensilios = despensa.getUtensilios();

@@ -9,7 +9,7 @@ import java.util.Map;
 
 public class CocinaService {
 
-    private DespensaService despensaService = new DespensaService();
+    private final DespensaService despensaService = new DespensaService();
 
     public void cocinar(Despensa despensa, Receta receta) throws StockInsuficiente, VidaUtilInsuficiente {
         despensaService.checkIngredientes(despensa, receta);
@@ -17,6 +17,8 @@ public class CocinaService {
 
         Map<String, Ingrediente> ingredientesDespensa = despensa.getIngredientes();
         Map<String, Ingrediente> ingredientesReceta = receta.getIngredientes();
+        Map<String, Utensilio> utensiliosDespensa = despensa.getUtensilios();
+        Map<String, Utensilio> utensiliosReceta = receta.getUtensilios();
 
         System.out.println("Preparación de: " + receta.getClass().getSimpleName() +"\n" + receta.getPreparacion());
         System.out.println("\nIngredientes restantes despues de la preparación:");
@@ -27,6 +29,17 @@ public class CocinaService {
                 int nuevaCantidad = ingredienteDespensa.getCantidad() - ingredienteReceta.getValue().getCantidad();
                 ingredientesDespensa.put(ingredienteReceta.getKey(), new Ingrediente(ingredienteReceta.getKey(), nuevaCantidad));
                 System.out.println(ingredienteReceta.getKey() + ": " + nuevaCantidad + " unidades");
+            }
+        }
+
+        System.out.println("\nVida útil de los utensilios después de la preparación:");
+
+        for (Map.Entry<String, Utensilio> utensilioReceta : utensiliosReceta.entrySet()) {
+            Utensilio utensilioDespensa = utensiliosDespensa.get(utensilioReceta.getKey());
+            if (utensilioDespensa != null) {
+                int nuevaVidaUtil = utensilioDespensa.getVidaUtil() - 1; // assuming each recipe reduces the vidaUtil by 1
+                utensilioDespensa.setVidaUtil(nuevaVidaUtil);
+                System.out.println(utensilioReceta.getKey() + ": " + nuevaVidaUtil + " vida útil");
             }
         }
 
